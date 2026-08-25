@@ -16,6 +16,13 @@
 /skill/*
 !/skill/interview-video-story-editor/
 
+# 流程防線與自動備份。只放行這兩項 ——
+# settings.local.json 是個人覆寫，其餘是快取，都不該進 repo。
+!/.claude/
+/.claude/*
+!/.claude/settings.json
+!/.claude/hooks/
+
 # 明確排除，即使有人日後放寬上面的規則
 **/.env
 **/.DS_Store

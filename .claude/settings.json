@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/檢查流程.py\"",
+            "timeout": 10,
+            "statusMessage": "檢查剪輯流程前置條件"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/備份知識庫.py\"",
+            "timeout": 60,
+            "statusMessage": "備份剪輯知識庫到 AI_Cut"
+          }
+        ]
+      }
+    ]
+  }
+}
