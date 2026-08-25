@@ -1,0 +1,6 @@
+interface:
+  display_name: "採訪影片敘事剪輯"
+  short_description: "分析、規劃與製作採訪影片的敘事剪輯、轉場及品牌字卡風格"
+  default_prompt: "使用 $interview-video-story-editor 分析或規劃這支採訪影片的敘事與剪輯。"
+policy:
+  allow_implicit_invocation: true
