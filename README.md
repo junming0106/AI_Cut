@@ -17,6 +17,10 @@
 它會檢查剪片要用的工具齊不齊，缺什麼就自動補、補不了的會告訴你怎麼裝。
 看到最後一行「video-use 環境就緒」就成了。同一台電腦只要跑這一次。
 
+**如果這包是從 GitHub 下載的**，剪輯引擎（`skill/video-use/`）不在裡面——
+它是別人維護的專案，跟著備份會出問題，所以拿掉了。上面那行會自己抓回來，
+你不用做什麼。看到「已取得 skill/video-use/」就是抓好了。
+
 **還要申請一組金鑰。**逐字稿是交給 ElevenLabs 轉的，沒有金鑰就轉不出來。
 到 <https://elevenlabs.io/app/settings/api-keys> 申請，把那串字貼進
 `skill/video-use/.env` 裡 `ELEVENLABS_API_KEY=` 的後面就好。

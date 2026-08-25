@@ -36,6 +36,19 @@ interview-video-story-editor 補上。動手剪之前兩份都要讀：
 
 檢查並補齊 ffmpeg、Python 套件、`skill/video-use/.env`，最後實際跑一次 helper 驗證。
 
+**從 GitHub clone 來的話，`skill/video-use/` 不會在。** 它自帶 `.git`（上游
+repo），不能一起進版控，所以備份時排除了。上面那行 setup.sh 找不到它會自動
+`git clone` 取回；要手動補就是：
+
+```bash
+git clone https://github.com/browser-use/video-use skill/video-use
+```
+
+**給 Agent：動任何剪輯流程之前先確認 `skill/video-use/helpers/` 在。**
+不在就先取得再開工——CLAUDE.md 要求一律用它的 helper 執行，缺了整條流程跑不動。
+同樣不隨備份走的還有含受訪者姓名的 `make_cards.py`、`make_broll.py`、
+`make_ae_cards.jsx`，那三支本來就要每個新專案重寫，照〈階段一〉自行產生。
+
 **金鑰不隨範本附帶**——腳本只會建出空的 `.env`，請自己到
 <https://elevenlabs.io/app/settings/api-keys> 申請後填進 `ELEVENLABS_API_KEY=`。
 沒填只是不能自動產逐字稿，其餘剪接功能照常。

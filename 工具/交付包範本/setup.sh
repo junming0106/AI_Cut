@@ -167,15 +167,40 @@ find_video_use() {
     return 1
 }
 
+# 範本根目錄的辨識特徵。交付封包裡沒有 工具/，所以那一份找不到，正好用來區分。
+find_template_root() {
+    local d="$HERE"
+    for _ in 1 2 3 4 5; do
+        [ -f "$d/工具/新專案.py" ] && { printf '%s\n' "$d"; return 0; }
+        d="$(dirname "$d")"
+    done
+    return 1
+}
+
+VU_REPO="https://github.com/browser-use/video-use"
+
 install_video_use() {
     section "video-use 剪輯環境"
 
-    local vu
+    local vu root
     vu="$(find_video_use)" || {
-        err "往上找不到 skill/video-use/"
-        warn "要在範本根目錄執行：工具/交付包範本/setup.sh video-use"
-        warn "還沒取得 skill 的話：git clone https://github.com/browser-use/video-use skill/video-use"
-        return 1
+        # 從 GitHub clone 這個範本的人不會有 skill/video-use/ ——
+        # 它自帶 .git，不能一起進版控。在範本根目錄就自己取回來。
+        if root="$(find_template_root)" && command -v git >/dev/null 2>&1; then
+            warn "skill/video-use/ 不在，從上游取得"
+            if git clone "$VU_REPO" "$root/skill/video-use"; then
+                vu="$root/skill/video-use"
+                ok "已取得 skill/video-use/"
+            else
+                err "clone 失敗。手動跑：git clone ${VU_REPO} skill/video-use"
+                return 1
+            fi
+        else
+            err "往上找不到 skill/video-use/"
+            warn "要在範本根目錄執行：工具/交付包範本/setup.sh video-use"
+            warn "還沒取得 skill 的話：git clone ${VU_REPO} skill/video-use"
+            return 1
+        fi
     }
     ok "skill 位置：$vu"
 
